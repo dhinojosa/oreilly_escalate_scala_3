@@ -1,0 +1,18 @@
+package com.xyzcorp.demo.opaquetypes
+
+
+object UsingOpaqueTypes:
+  opaque type Currency = String
+  object Currency:
+    def apply(s:String):Currency = s
+
+  def onlyAcceptCurrency(curr:Currency):Unit = {}
+  
+@main def assertThatTheNewTypeCanBeUsedAsString:Unit =
+  import UsingOpaqueTypes._
+
+  val a:Currency = Currency("Dollars")
+  onlyAcceptCurrency(a)
+
+
+
