@@ -1,0 +1,11 @@
+target
+.bloop/
+.bsp/
+.idea/
+.jvmopts
+.metals/
+.vscode/
+project/.bloop/
+project/build.properties
+project/metals.sbt
+project/project/
