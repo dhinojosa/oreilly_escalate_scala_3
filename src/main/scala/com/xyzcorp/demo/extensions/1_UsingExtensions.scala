@@ -1,5 +1,6 @@
 package com.xyzcorp.demo
 
+
 object UsingExtensions:
 
   extension (x:Int)

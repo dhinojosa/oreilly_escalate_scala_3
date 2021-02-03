@@ -3,9 +3,9 @@ package com.xyzcorp.demo.newcontrolsyntax
 @main def assertNewIfStatements:Unit =
   val x = 3
   val result = 
-    if (x > 0) then
+    if x > 0 then
       "Positive"
-    else if (x < 0) then
+    else if x < 0 then
       "Negative"
     else
       "Zero"
@@ -31,8 +31,8 @@ package com.xyzcorp.demo.newcontrolsyntax
   val xs = List(1,2,3)
   val ys = List('a', 'b', 'c')
   val result = for
-    x <- xs
-    y <- ys
+    x <- xs //flatMap
+    y <- ys //map
   yield (x -> y)
   println(result)
 

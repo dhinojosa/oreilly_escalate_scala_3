@@ -10,9 +10,7 @@ object UsingOpaqueTypes:
   
 @main def assertThatTheNewTypeCanBeUsedAsString:Unit =
   import UsingOpaqueTypes._
-
   val a:Currency = Currency("Dollars")
+  //val b:Currency = "Yuan" //Not Valid
   onlyAcceptCurrency(a)
-
-
 
