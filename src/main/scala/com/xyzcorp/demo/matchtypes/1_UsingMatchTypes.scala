@@ -50,4 +50,5 @@ type HCF[A <: Int, B <: Int] <: Int = B match {
   val a:HCF[50, 10] = 10
   val b:HCF[100, 0] = 100
   val c:HCF[25, 10] = 5
+  val d:5 = 5 //5 is a type
   
