@@ -13,6 +13,6 @@ def area(s:Shape):Double =
     case Circle(r) => scala.math.Pi * r * r
 
 @main def assertThatAreaWorks:Unit =
-  println(Triangle(10, 3))
-  println(Rectangle(10, 3))
-  println(Circle(10))
+  println(area(Triangle(10, 3)))
+  println(area(Rectangle(10, 3)))
+  println(area(Circle(10)))
