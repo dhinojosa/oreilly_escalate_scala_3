@@ -12,6 +12,7 @@ object UsingUnionTypes:
       case y:String =>
         s"$y$s$y"
   
-  @main def assertThatUnionTypesWork:Unit =
-    assert(padding("Hello", 3) == "   Hello   ")
-    assert(padding("Hello", "~~~") == "~~~Hello~~~")
+@main def assertThatUnionTypesWork:Unit =
+  import UsingUnionTypes.padding
+  assert(padding("Hello", 3) == "   Hello   ")
+  assert(padding("Hello", "~~~") == "~~~Hello~~~")

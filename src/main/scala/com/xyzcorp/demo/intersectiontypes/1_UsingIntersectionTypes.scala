@@ -25,5 +25,5 @@ object UsingIntersectionTypes:
     x.complete()
     sum
 
-  @main def assertThatWeCanRunAnIntersectionType:Unit = 
-    process(new ProcessListener, 10, 50)
+@main def assertThatWeCanRunAnIntersectionType:Unit = 
+  UsingIntersectionTypes.process(new ProcessListener, 10, 50)
