@@ -16,7 +16,7 @@ enum DebugLevel:
 
 case class LogItem(level:DebugLevel, msg:String)
 
-trait DebugThreshold(threshold:DebugLevel)
+trait DebugThreshold(val threshold:DebugLevel)
 
 trait LogStack(depth:Int) extends DebugThreshold:
   import scala.collection.mutable.Queue
