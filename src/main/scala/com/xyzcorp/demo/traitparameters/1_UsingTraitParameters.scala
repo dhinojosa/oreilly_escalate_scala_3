@@ -3,7 +3,7 @@ package com.xyzcorp.demo.traitparameters
 
 /**
 * trait is like a Java interface
-* Arguments to a trait parameters are evaluated 
+* Arguments to a trait parameters are evaluated
 * immediately before the trait is initialized.
 *
 * What is the difference between the abstract and
@@ -16,9 +16,9 @@ enum DebugLevel:
 
 case class LogItem(level:DebugLevel, msg:String)
 
-trait DebugThreshold(threshold:DebugLevel)
+trait DebugThreshold(val threshold:DebugLevel)
 
-trait LogStack(depth:Int) extends DebugThreshold: 
+trait LogStack(depth:Int) extends DebugThreshold:
   import scala.collection.mutable.Queue
   private val queue = Queue.empty[LogItem]
   def add(logItem:LogItem) =
@@ -28,14 +28,14 @@ trait LogStack(depth:Int) extends DebugThreshold:
   def elements = queue.toList
 
 case class Account(accountNumber: String, balance:Long) extends LogStack(5) with DebugThreshold(DebugLevel.WARN):
-  def deposit(amount:Long) = 
+  def deposit(amount:Long) =
     add(LogItem(DebugLevel.DEBUG, s"Depositing $amount"))
-  def withdrawal(amount:Long) = 
+  def withdrawal(amount:Long) =
     add(LogItem(DebugLevel.DEBUG, s"Attempt withdrawal of $amount"))
-    if !(balance - amount < 0) then 
+    if !(balance - amount < 0) then
       add(LogItem(DebugLevel.DEBUG,s"Withdrawal $amount successful"))
 
-@main def assertThatWeCanUseTraitParameters:Unit = 
+@main def assertThatWeCanUseTraitParameters:Unit =
   val account = Account("12-40-590903", 1203)
   println(account.elements)
   account.deposit(40)
