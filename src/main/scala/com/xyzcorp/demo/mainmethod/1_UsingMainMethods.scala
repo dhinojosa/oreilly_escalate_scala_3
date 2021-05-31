@@ -5,9 +5,8 @@ package com.xyzcorp.demo.mainmethod
 //2. Visual Studio Code recognizes a main method and allows a run
 //3. `assertSimpleMainMethodWithArgsWorks` will parse arguments automatically
 
-@main def assertSimpleMainMethodWorks:Unit =
+@main def assertSimpleMainMethodWorks: Unit =
   println("Hello World")
 
-@main def assertSimpleMainMethodWithArgsWorks(name:String, times:Int) =
+@main def assertSimpleMainMethodWithArgsWorks(name: String, times: Int) =
   println(name.repeat(times))
-

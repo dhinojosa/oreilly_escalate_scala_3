@@ -13,7 +13,7 @@ package com.xyzcorp.demo.higherkindedtypes
 //  Map[String, Int]
 //  Either[String, Double]
 //
-// But if partially apply the type so 
+// But if partially apply the type so
 // that there is only one parameterized type
 // then yes, we can apply that to C[A]
 //
@@ -21,56 +21,55 @@ package com.xyzcorp.demo.higherkindedtypes
 // type EitherWithOneHole [A] =>> Either[String, A]
 
 trait Functor[F[_]]:
-  def fmap[A,B](fa:F[A])(f: A => B):F[B]
+  def fmap[A, B](fa: F[A])(f: A => B): F[B]
 
 object Functor:
-  def apply[F[_]](using fun:Functor[F]):Functor[F] = fun 
+  def apply[F[_]](using fun: Functor[F]): Functor[F] = fun
 
 object ListTypeClasses:
-  given Functor[List] with 
-    def fmap[A,B](fa:List[A])(f:A => B) = 
+  given Functor[List] with
+    def fmap[A, B](fa: List[A])(f: A => B) =
       fa.map(f)
 
-@main def assertUsingAHigherKindedTypeWorksWithList:Unit =
+@main def assertUsingAHigherKindedTypeWorksWithList: Unit =
   import ListTypeClasses.given
-  val result:List[Int] = Functor[List].fmap(List(1,2,3))(_ * 2)
+  val result: List[Int] = Functor[List].fmap(List(1, 2, 3))(_ * 2)
   println(result)
 
-case class MyBox[A](value:A)
+case class MyBox[A](value: A)
 object MyBox:
   given Functor[MyBox] with
-    def fmap[A,B](ba:MyBox[A])(f:A => B):MyBox[B] =
+    def fmap[A, B](ba: MyBox[A])(f: A => B): MyBox[B] =
       MyBox(f(ba.value))
 
-@main def assertUsingAHigherKindedTypeWorksWithCustom:Unit =
-  import MyBox.given
-  val result:MyBox[Int] = Functor[MyBox].fmap(MyBox("Hello"))(_.length)
+@main def assertUsingAHigherKindedTypeWorksWithCustom: Unit =
+  val result: MyBox[Int] = Functor[MyBox].fmap(MyBox("Hello"))(_.length)
   println(result)
 
-object EitherTypeClasses: 
-  given Functor[[A] =>> Either[String,A]] with
-    def fmap[A,B](se:Either[String,A])(f:A => B):Either[String,B] =
+object EitherTypeClasses:
+  given Functor[[A] =>> Either[String, A]] with
+    def fmap[A, B](se: Either[String, A])(f: A => B): Either[String, B] =
       se match
-        case Left(x) => Left(x)
+        case Left(x)  => Left(x)
         case Right(y) => Right(f(y))
 
-@main def assertUsingWithAnEither:Unit = 
+@main def assertUsingWithAnEither: Unit =
   import EitherTypeClasses.given
-  val result = Functor[[A] =>> Either[String,A]].fmap(Right(30))(_ * 2)
+  val result = Functor[[A] =>> Either[String, A]].fmap(Right(30))(_ * 2)
   println(result)
 
 trait Monad[F[_]]:
-  def pure[A](a:A):F[A]
-  def flatMap[A,B](fa:F[A])(f:A => F[B]):F[B]
+  def pure[A](a: A): F[A]
+  def flatMap[A, B](fa: F[A])(f: A => F[B]): F[B]
 
 object Monad:
-  def apply[F[_]](using monad:Monad[F]):Monad[F] = monad
+  def apply[F[_]](using monad: Monad[F]): Monad[F] = monad
 
 object ListTypeClassesPlus:
   given Monad[List] with
-    def pure[A](a:A) = List(a)
-    def flatMap[A,B](fa:List[A])(f:A => List[B]) = fa.flatMap(f)
+    def pure[A](a: A) = List(a)
+    def flatMap[A, B](fa: List[A])(f: A => List[B]) = fa.flatMap(f)
 
-@main def assertUsingFlatMapInAMonad:Unit =
+@main def assertUsingFlatMapInAMonad: Unit =
   import ListTypeClassesPlus.given
-  println(Monad[List].flatMap(List(1,2,3,4))(x => List(-x, x, x + 3)))
+  Monad[List].flatMap(List(1, 2, 3, 4))(x => List(-x, x, x + 3))

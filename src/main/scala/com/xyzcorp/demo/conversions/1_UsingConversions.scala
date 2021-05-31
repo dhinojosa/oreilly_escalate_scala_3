@@ -3,10 +3,11 @@ package com.xyzcorp.demo.conversions
 import scala.language.implicitConversions
 
 object UsingConversions:
-   case class Currency(value:Int)
-  
-   given Conversion[Int, Currency] = Currency(_)
+  case class Currency(value: Int)
 
-   @main def assertASimpleCurrencyConversion:Unit =
-     val currency:Currency = 40
-     println(currency)
+  given Conversion[Int, Currency] = Currency(_)
+
+@main def assertASimpleCurrencyConversion: Unit =
+  import UsingConversions.*
+  val currency: Currency = 40
+  println(currency)

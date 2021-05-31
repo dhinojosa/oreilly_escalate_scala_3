@@ -1,17 +1,17 @@
 package com.xyzcorp.demo.givenusing
 
 object UsingGivenParameters:
-  case class Rate(value:Int)
-  case class Hours(value:Int)
+  case class Rate(value: Int)
+  case class Hours(value: Int)
 
   given Rate = Rate(100) //binding Rate.class = Rate(100)
 
-  def calculateTimeSheet(x:Hours)(using r:Rate) =
+  def calculateTimeSheet(x: Hours)(using r: Rate) =
     x.value * r.value
 
-@main def assertWeGetTheImplicitValue:Unit =
-  import UsingGivenParameters._  
+@main def assertWeGetTheImplicitValue: Unit =
+  import UsingGivenParameters.*
   assert(calculateTimeSheet(Hours(40)) == 4000)
 
-  val currentRate:Rate = summon[Rate]
+  val currentRate: Rate = summon[Rate]
   println(currentRate)
