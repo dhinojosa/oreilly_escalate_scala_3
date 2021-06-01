@@ -13,12 +13,9 @@ given [A](using sg: SemiGroup[A]): SemiGroup[List[A]] with
   extension (x: List[A]) def combine(y: List[A]) = x.zip(y).map(_ combine _)
 
 object MyOps:
-  def join[A: SemiGroup](x: A, y: A) = x.combine(y)
-//Semigroup[A]
+  def join[A: SemiGroup](x: A, y: A) = x.combine(y) //Semigroup[A]
 
 @main def assertThatASimpleTypeClassSemigroupWorks: Unit =
-  import MyOps.*
   println(join("Hello", "World"))
   println(join(10, 40))
-  println(join(List(1, 2, 3), List(5, 6, 7)))
-//Whoa!
+  println(join(List(1, 2, 3), List(5, 6, 7))) //Whoa!
